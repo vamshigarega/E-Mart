@@ -87,7 +87,87 @@
         
       </div>
     </div>
+  </div> 
+
+  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+              Check Out Form
+          </h5>
+          <hr>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="m-2 p-3">
+            <form id="/check-out" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="">Address</label>
+                  <input type="text" name="address" id="address" class="form-control" placeholder="" aria-describedby="helpId">
+                </div>
+                <div class="form-group">
+                  <label for="">Phone</label>
+                  <input type="text" name="phone" id="phone" class="form-control" placeholder="" aria-describedby="helpId">
+                </div>
+                <button id="razorpay-btn" class="btn float-right btn-outline-info col-lg-6">Pay with Razorpay</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+    var options = {
+      "key": "YOUR_KEY_ID", // Replace with your own key ID
+      "amount": "50000", // 50000 paise = INR 500
+      "currency": "INR",
+      "name": "My Store",
+      "description": "Payment for checkout",
+      "image": "https://your-image-url.png",
+      "handler": function (response){
+          alert('Payment successful. Transaction ID: ' + response.razorpay_payment_id);
+          $('#checkout-form').submit(); // Submit the checkout form after successful payment
+      },
+      "prefill": {
+        "name": "John Doe",
+        "email": "johndoe@example.com",
+        "contact": "+919999999999"
+      },
+      "notes": {
+        "address": $('#address').val(),
+        "phone": $('#phone').val()
+      }
+    };
+  
+    $('#razorpay-btn').click(function(e){
+      e.preventDefault();
+      $.ajax({
+          url: '/cart.html', // Replace with your own URL to create order
+          type: 'POST',
+          data: {
+              amount: options.amount,
+              currency: options.currency
+          },
+          success: function(response) {
+              var order = JSON.parse(response);
+              options.order_id = order.id;
+              var rzp = new Razorpay(options);
+              rzp.open();
+          },
+          error: function(xhr, status, error) {
+              console.log(error);
+          }
+      });
+    });
+  </script> -->
+  
 
 
 
